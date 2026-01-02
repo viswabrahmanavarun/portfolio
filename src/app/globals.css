@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================
+   GLOBAL STYLES
+   ========================= */
+body {
+  @apply bg-white text-gray-900 antialiased;
+}
+
+/* =========================
+   SECTION SPACING
+   ========================= */
+section {
+  @apply py-16;
+}
+
+/* =========================
+   HEADINGS
+   ========================= */
+h1 {
+  @apply text-4xl font-bold;
+}
+
+h2 {
+  @apply text-2xl font-semibold mb-6;
+}
+
+h3 {
+  @apply text-lg font-medium;
+}
+
+/* =========================
+   PARAGRAPHS
+   ========================= */
+p {
+  @apply text-gray-700 leading-relaxed;
+}
+
+/* =========================
+   LINKS
+   ========================= */
+a {
+  @apply text-blue-600 hover:underline;
+}
+
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px; /* height of navbar */
+}
+
+/* Better animation rendering */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
