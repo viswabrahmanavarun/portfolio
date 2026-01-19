@@ -2,7 +2,11 @@
 
 import { motion } from "framer-motion";
 import { Award } from "lucide-react";
+import BackgroundEffects from "@/components/BackgroundEffects";
 
+/* ===============================
+   CERTIFICATIONS DATA
+================================ */
 const certifications = [
   {
     title: "Microsoft Security, Compliance & Identity Fundamentals",
@@ -28,30 +32,21 @@ export default function Certifications() {
       id="certifications"
       className="relative py-28 overflow-hidden"
     >
-      {/* SAME LIGHT BACKGROUND AS OTHER SECTIONS */}
-      <div className="absolute inset-0 bg-gradient-to-br from-sky-50 via-white to-rose-50" />
+      {/* ===============================
+         SAME BACKGROUND AS HERO
+      ================================ */}
+      <BackgroundEffects />
 
-      {/* Floating Blobs */}
-      <motion.div
-        animate={{ x: [0, 70, 0], y: [0, 50, 0] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-24 left-24 w-80 h-80 bg-sky-200/40 rounded-full blur-3xl"
-      />
-
-      <motion.div
-        animate={{ x: [0, -90, 0], y: [0, -60, 0] }}
-        transition={{ duration: 34, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-24 right-24 w-96 h-96 bg-rose-200/40 rounded-full blur-3xl"
-      />
-
-      {/* CONTENT */}
+      {/* ===============================
+         CONTENT
+      ================================ */}
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-3xl font-bold text-center mb-14"
+          className="text-3xl md:text-4xl font-bold text-center mb-14"
         >
           Certifications & Internships
         </motion.h2>
@@ -66,14 +61,16 @@ export default function Certifications() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.15 }}
               whileHover={{ y: -6 }}
-              className="relative bg-white/80 backdrop-blur rounded-2xl
-                         border border-gray-200 p-6
-                         shadow-sm hover:shadow-lg transition"
+              className="relative bg-white/80 backdrop-blur
+                         rounded-2xl border border-gray-200
+                         p-6 shadow-sm hover:shadow-lg transition"
             >
               {/* Soft Glow */}
               <div
-                className="absolute inset-0 rounded-2xl opacity-0 hover:opacity-100
-                           bg-gradient-to-br from-indigo-50 via-transparent to-pink-50
+                className="absolute inset-0 rounded-2xl opacity-0
+                           hover:opacity-100
+                           bg-gradient-to-br
+                           from-indigo-50 via-transparent to-pink-50
                            transition pointer-events-none"
               />
 

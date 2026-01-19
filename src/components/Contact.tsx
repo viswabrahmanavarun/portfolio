@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Mail, Phone, Github, Linkedin } from "lucide-react";
+import BackgroundEffects from "@/components/BackgroundEffects";
 
 export default function Contact() {
   return (
@@ -9,30 +10,21 @@ export default function Contact() {
       id="contact"
       className="relative py-28 overflow-hidden"
     >
-      {/* SAME LIGHT BACKGROUND AS OTHER SECTIONS */}
-      <div className="absolute inset-0 bg-gradient-to-br from-sky-50 via-white to-rose-50" />
+      {/* ===============================
+         SAME BACKGROUND AS HERO
+      ================================ */}
+      <BackgroundEffects />
 
-      {/* Floating Blobs */}
-      <motion.div
-        animate={{ x: [0, 70, 0], y: [0, 50, 0] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-24 left-24 w-80 h-80 bg-sky-200/40 rounded-full blur-3xl"
-      />
-
-      <motion.div
-        animate={{ x: [0, -90, 0], y: [0, -60, 0] }}
-        transition={{ duration: 34, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-24 right-24 w-96 h-96 bg-rose-200/40 rounded-full blur-3xl"
-      />
-
-      {/* CONTENT */}
+      {/* ===============================
+         CONTENT
+      ================================ */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-3xl font-bold mb-6"
+          className="text-3xl md:text-4xl font-bold mb-6"
         >
           Contact
         </motion.h2>
@@ -44,8 +36,8 @@ export default function Contact() {
           transition={{ delay: 0.1 }}
           className="text-gray-600 mb-12"
         >
-          Feel free to reach out for opportunities, collaborations, or just a
-          quick chat.
+          Feel free to reach out for opportunities, collaborations,
+          or just a quick chat.
         </motion.p>
 
         {/* Contact Cards */}
@@ -55,7 +47,8 @@ export default function Contact() {
             whileHover={{ scale: 1.04 }}
             href="mailto:v.varun2355@gmail.com"
             className="flex items-center gap-4 p-5 rounded-xl
-                       bg-white/80 backdrop-blur border border-gray-200
+                       bg-white/80 backdrop-blur
+                       border border-gray-200
                        shadow-sm hover:shadow-lg transition"
           >
             <Mail className="text-indigo-600" />
@@ -68,12 +61,13 @@ export default function Contact() {
           <motion.div
             whileHover={{ scale: 1.04 }}
             className="flex items-center gap-4 p-5 rounded-xl
-                       bg-white/80 backdrop-blur border border-gray-200
+                       bg-white/80 backdrop-blur
+                       border border-gray-200
                        shadow-sm hover:shadow-lg transition"
           >
             <Phone className="text-green-600" />
             <span className="font-medium">
-              +91 93986 92826
+              +91&nbsp;93986&nbsp;92826
             </span>
           </motion.div>
 
@@ -83,7 +77,8 @@ export default function Contact() {
             href="https://github.com/viswabrahmanavarun"
             target="_blank"
             className="flex items-center gap-4 p-5 rounded-xl
-                       bg-white/80 backdrop-blur border border-gray-200
+                       bg-white/80 backdrop-blur
+                       border border-gray-200
                        shadow-sm hover:shadow-lg transition"
           >
             <Github className="text-gray-800" />
@@ -98,7 +93,8 @@ export default function Contact() {
             href="http://www.linkedin.com/in/varun-viswabrahmana-509217344"
             target="_blank"
             className="flex items-center gap-4 p-5 rounded-xl
-                       bg-white/80 backdrop-blur border border-gray-200
+                       bg-white/80 backdrop-blur
+                       border border-gray-200
                        shadow-sm hover:shadow-lg transition"
           >
             <Linkedin className="text-blue-700" />

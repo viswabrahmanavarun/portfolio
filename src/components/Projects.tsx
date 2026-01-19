@@ -3,7 +3,11 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Github, X } from "lucide-react";
 import { useState } from "react";
+import BackgroundEffects from "@/components/BackgroundEffects";
 
+/* ===============================
+   PROJECTS DATA
+================================ */
 const projects = [
   {
     title: "Restaurant Management System",
@@ -79,23 +83,14 @@ export default function Projects() {
       id="projects"
       className="relative py-28 overflow-hidden"
     >
-      {/* SAME LIGHT BACKGROUND AS HERO */}
-      <div className="absolute inset-0 bg-gradient-to-br from-sky-50 via-white to-rose-50" />
+      {/* ===============================
+         SAME BACKGROUND AS HERO
+      ================================ */}
+      <BackgroundEffects />
 
-      {/* Soft Floating Blobs */}
-      <motion.div
-        animate={{ x: [0, 80, 0], y: [0, 50, 0] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-20 left-20 w-80 h-80 bg-sky-200/40 rounded-full blur-3xl"
-      />
-
-      <motion.div
-        animate={{ x: [0, -100, 0], y: [0, -60, 0] }}
-        transition={{ duration: 34, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-20 right-20 w-96 h-96 bg-rose-200/40 rounded-full blur-3xl"
-      />
-
-      {/* CONTENT */}
+      {/* ===============================
+         CONTENT
+      ================================ */}
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -132,7 +127,8 @@ export default function Projects() {
                 {project.tech.map((tech: string) => (
                   <span
                     key={tech}
-                    className="text-xs px-3 py-1 rounded-full bg-indigo-100 text-indigo-700"
+                    className="text-xs px-3 py-1 rounded-full
+                               bg-indigo-100 text-indigo-700"
                   >
                     {tech}
                   </span>
@@ -143,11 +139,14 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* MODAL */}
+      {/* ===============================
+         MODAL
+      ================================ */}
       <AnimatePresence>
         {activeProject && (
           <motion.div
-            className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4"
+            className="fixed inset-0 bg-black/40 flex items-center
+                       justify-center z-50 px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -156,7 +155,8 @@ export default function Projects() {
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
-              className="bg-white max-w-xl w-full rounded-xl p-6 relative"
+              className="bg-white max-w-xl w-full
+                         rounded-xl p-6 relative"
             >
               <button
                 onClick={() => setActiveProject(null)}
@@ -177,18 +177,19 @@ export default function Projects() {
                 {activeProject.tech.map((tech: string) => (
                   <span
                     key={tech}
-                    className="text-xs px-3 py-1 rounded-full bg-indigo-100 text-indigo-700"
+                    className="text-xs px-3 py-1 rounded-full
+                               bg-indigo-100 text-indigo-700"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
 
-              {/* GitHub only */}
               <a
                 href={activeProject.github}
                 target="_blank"
-                className="flex items-center gap-2 text-gray-700 hover:text-black"
+                className="flex items-center gap-2
+                           text-gray-700 hover:text-black"
               >
                 <Github size={16} />
                 GitHub Repository
