@@ -62,10 +62,10 @@ export default function Contact() {
             <div className="absolute top-0 right-0 p-8 opacity-5">
               <Send size={120} />
             </div>
-            <h3 className="text-2xl font-bold mb-6">Let's build something amazing together!</h3>
+            <h3 className="text-2xl font-bold mb-6">Let&apos;s build something amazing together!</h3>
             <p className="text-white/60 mb-8 leading-relaxed">
               I am currently available for freelance work and full-time positions. 
-              If you have a project that needs a creative and technical touch, don't hesitate to contact me.
+              If you have a project that needs a creative and technical touch, don&apos;t hesitate to contact me.
             </p>
             <a
               href="mailto:v.varun2355@gmail.com"
