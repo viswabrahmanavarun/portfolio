@@ -1,58 +1,75 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { GraduationCap, Calendar, MapPin } from "lucide-react";
+
+const educationData = [
+  {
+    degree: "Integrated M.Tech in Software Engineering",
+    institution: "Vellore Institute of Technology",
+    duration: "2020 – 2025",
+    location: "Vellore, India",
+    description: "Specialized in full-stack development, cloud computing, and machine learning. Actively involved in research and technical projects.",
+    color: "from-blue-500 to-cyan-400",
+  },
+];
 
 export default function Education() {
   return (
-    <section id="education" className="py-24 bg-white">
-      <div className="max-w-4xl mx-auto px-6">
-        <motion.h2
+    <section id="education" className="relative">
+      <div className="relative z-10 max-w-5xl mx-auto px-6">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-3xl font-bold text-center mb-16"
+          className="text-center mb-20"
         >
-          Education
-        </motion.h2>
+          <h2 className="text-4xl md:text-6xl font-black mb-4">
+            Educational <span className="text-gradient">Journey</span>
+          </h2>
+          <p className="text-white/50 text-lg max-w-2xl mx-auto">
+            My academic background and key research focus.
+          </p>
+        </motion.div>
 
-        <div className="relative border-l-2 border-blue-200 pl-8 space-y-12">
-          {/* VIT */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <span className="absolute -left-[9px] top-1 h-4 w-4 bg-blue-600 rounded-full" />
-            <h3 className="text-lg font-semibold">
-              Integrated M.Tech – Software Engineering
-            </h3>
-            <p className="text-sm text-gray-600">
-              Vellore Institute of Technology (2020 – 2025)
-            </p>
-            <p className="mt-2 text-gray-700 text-sm">
-              Focused on full-stack development, machine learning, data analysis,
-              and final-year research using Graph Neural Networks.
-            </p>
-          </motion.div>
+        <div className="space-y-8">
+          {educationData.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="glass-card p-8 md:p-10 relative overflow-hidden group"
+            >
+              <div className={`absolute top-0 left-0 w-2 h-full bg-gradient-to-b ${item.color}`} />
+              
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 text-blue-400 mb-4">
+                    <GraduationCap size={20} />
+                    <span className="text-sm font-bold uppercase tracking-widest">{item.institution}</span>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-black text-white mb-4 group-hover:text-blue-400 transition-colors">
+                    {item.degree}
+                  </h3>
+                  <p className="text-white/60 leading-relaxed max-w-3xl">
+                    {item.description}
+                  </p>
+                </div>
 
-          {/* Final Year Project */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <span className="absolute -left-[9px] top-1 h-4 w-4 bg-blue-600 rounded-full" />
-            <h3 className="text-lg font-semibold">
-              Final Year Project
-            </h3>
-            <p className="text-sm text-gray-600">
-              Educational Geodemographic Classification using GNNs
-            </p>
-            <p className="mt-2 text-gray-700 text-sm">
-              Applied Graph Neural Networks to model spatial and socioeconomic
-              relationships for educational data classification.
-            </p>
-          </motion.div>
+                <div className="flex flex-col gap-3 text-sm text-white/40 font-medium">
+                  <div className="flex items-center gap-2">
+                    <Calendar size={16} />
+                    <span>{item.duration}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MapPin size={16} />
+                    <span>{item.location}</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

@@ -1,57 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
-import { ArrowDown, Briefcase } from "lucide-react";
-import {
-  SiJavascript,
-  SiReact,
-  SiNextdotjs,
-  SiHtml5,
-  SiCss3,
-  SiTailwindcss,
-  SiNodedotjs,
-  SiExpress,
-  SiMongodb,
-  SiMysql,
-  SiPostgresql,
-  SiDocker,
-  SiGit,
-  SiCypress,
-  SiSelenium,
-  SiPython,
-  SiTensorflow,
-} from "react-icons/si";
+import { Briefcase, Github, Linkedin, Mail } from "lucide-react";
+import Magnetic from "./Magnetic";
 
-const roles = ["Software Engineer", "Full Stack Developer"];
-
-/* ===============================
-   FLOATING BACKGROUND ICONS
-================================ */
-const techIcons = [
-  { Icon: SiJavascript, className: "top-20 left-16 text-yellow-400" },
-  { Icon: SiReact, className: "top-40 right-24 text-cyan-400" },
-  { Icon: SiNextdotjs, className: "top-16 right-1/2 text-black/70" },
-  { Icon: SiHtml5, className: "bottom-32 left-24 text-orange-500" },
-  { Icon: SiCss3, className: "bottom-24 right-40 text-blue-500" },
-  { Icon: SiTailwindcss, className: "top-1/2 left-10 text-sky-400" },
-
-  { Icon: SiNodedotjs, className: "top-1/3 left-1/2 text-green-500" },
-  { Icon: SiExpress, className: "bottom-1/3 right-1/3 text-gray-700" },
-
-  { Icon: SiMongodb, className: "top-24 left-1/3 text-green-600" },
-  { Icon: SiMysql, className: "bottom-16 left-1/4 text-blue-600" },
-  { Icon: SiPostgresql, className: "top-2/3 right-16 text-indigo-600" },
-
-  { Icon: SiDocker, className: "top-1/2 right-20 text-sky-500" },
-  { Icon: SiGit, className: "bottom-1/2 left-20 text-red-500" },
-
-  { Icon: SiCypress, className: "top-1/4 left-1/4 text-green-700" },
-  { Icon: SiSelenium, className: "bottom-1/4 right-1/4 text-green-600" },
-
-  { Icon: SiPython, className: "top-3/4 left-1/2 text-yellow-500" },
-  { Icon: SiTensorflow, className: "bottom-3/4 right-1/3 text-orange-500" },
-];
+const roles = ["Software Engineer", "Full Stack Developer", "UI/UX Enthusiast", "Problem Solver"];
 
 export default function Hero() {
   const [text, setText] = useState("");
@@ -59,135 +13,149 @@ export default function Hero() {
   const [subIndex, setSubIndex] = useState(0);
   const [reverse, setReverse] = useState(false);
 
-  /* ===============================
-     TYPEWRITER EFFECT
-  ================================ */
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX - window.innerWidth / 2);
+      mouseY.set(e.clientY - window.innerHeight / 2);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  const smoothX = useSpring(mouseX, { damping: 50, stiffness: 400 });
+  const smoothY = useSpring(mouseY, { damping: 50, stiffness: 400 });
+
+  const rotateX = useTransform(smoothY, [-500, 500], [10, -10]);
+  const rotateY = useTransform(smoothX, [-500, 500], [-10, 10]);
+
   useEffect(() => {
     if (subIndex === roles[index].length + 1 && !reverse) {
-      setTimeout(() => setReverse(true), 1000);
+      setTimeout(() => setReverse(true), 1500);
       return;
     }
-
     if (subIndex === 0 && reverse) {
       setReverse(false);
       setIndex((prev) => (prev + 1) % roles.length);
       return;
     }
-
     const timeout = setTimeout(() => {
       setSubIndex((prev) => prev + (reverse ? -1 : 1));
       setText(roles[index].substring(0, subIndex));
-    }, reverse ? 40 : 80);
-
+    }, reverse ? 30 : 60);
     return () => clearTimeout(timeout);
   }, [subIndex, index, reverse]);
 
+  const name = "Varun Viswabrahmana";
+
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-    >
-      {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-sky-50 via-white to-rose-50" />
-
-      {/* Floating Blobs */}
-      <motion.div
-        animate={{ x: [0, 100, 0], y: [0, 60, 0] }}
-        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-24 left-24 w-96 h-96 bg-sky-200/40 rounded-full blur-3xl"
-      />
-
-      <motion.div
-        animate={{ x: [0, -120, 0], y: [0, -60, 0] }}
-        transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-24 right-24 w-[28rem] h-[28rem] bg-rose-200/40 rounded-full blur-3xl"
-      />
-
-      <motion.div
-        animate={{ x: [0, 80, 0], y: [0, -40, 0] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/2 left-1/3 w-80 h-80 bg-purple-200/30 rounded-full blur-3xl"
-      />
-
-      {/* Floating Tech Icons */}
-      {techIcons.map(({ Icon, className }, i) => (
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden perspective-1000">
+      <motion.div 
+        style={{ rotateX, rotateY, z: 100 }}
+        className="relative z-10 max-w-5xl mx-auto px-6 text-center"
+      >
         <motion.div
-          key={i}
-          animate={{ y: [0, -20, 0], rotate: [0, 6, 0] }}
-          transition={{
-            duration: 7 + i,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className={`absolute ${className} text-6xl opacity-10`}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="inline-block px-4 py-1.5 mb-8 text-[10px] font-black tracking-[0.3em] text-blue-400 uppercase glass-card"
         >
-          <Icon />
+          Architecting Digital Experiences
         </motion.div>
-      ))}
 
-      {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9 }}
-          className="text-5xl md:text-7xl font-extrabold tracking-tight
-                     bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600
-                     bg-clip-text text-transparent"
-        >
-          Varun Viswabrahmana
-        </motion.h1>
+        <h1 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.85] mb-8">
+          {name.split(" ").map((word, i) => (
+            <span key={i} className="inline-block mr-4 last:mr-0">
+              {word.split("").map((char, j) => (
+                <motion.span
+                  key={j}
+                  initial={{ opacity: 0, y: 50, rotateX: -90 }}
+                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                  transition={{ 
+                    duration: 0.8, 
+                    delay: (i * 10 + j) * 0.03,
+                    ease: [0.215, 0.61, 0.355, 1]
+                  }}
+                  className={`inline-block ${i === 0 ? "text-gradient" : "text-white/90"}`}
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </span>
+          ))}
+        </h1>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="mt-6 text-xl md:text-2xl font-medium text-gray-700"
+          transition={{ delay: 1 }}
+          className="text-2xl md:text-4xl font-bold text-white/50 h-12 flex items-center justify-center"
         >
           {text}
-          <span className="ml-1 animate-pulse">|</span>
-        </motion.p>
+          <motion.span 
+            animate={{ opacity: [1, 0] }}
+            transition={{ duration: 0.8, repeat: Infinity }}
+            className="ml-2 w-1 h-8 md:h-12 bg-blue-500"
+          />
+        </motion.div>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="mt-8 text-base md:text-lg text-gray-600 leading-relaxed"
+          transition={{ delay: 1.2 }}
+          className="mt-10 text-lg md:text-xl text-white/40 max-w-2xl mx-auto leading-relaxed font-medium"
         >
-          I design and develop scalable <strong>full-stack applications</strong>{" "}
-          using <strong>Next.js</strong>, <strong>TypeScript</strong>, and{" "}
-          <strong>Node.js</strong>. I focus on building high-performance,
-          maintainable systems with clean UI/UX and robust backend architectures.
-          Passionate about solving real-world problems through efficient,
-          user-centric software solutions.
+          Building high-performance, scalable web ecosystems with 
+          <span className="text-white"> Modern Tech Stacks</span>.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="mt-12 flex justify-center"
+          transition={{ delay: 1.4 }}
+          className="mt-16 flex flex-wrap justify-center gap-8 items-center"
         >
-          <a
-            href="#projects"
-            className="flex items-center gap-3 rounded-full
-                       bg-indigo-600 px-8 py-4 text-white
-                       font-semibold shadow-lg
-                       hover:bg-indigo-700 hover:scale-105 transition"
-          >
-            <Briefcase size={20} />
-            View Projects
-          </a>
-        </motion.div>
+          <Magnetic>
+            <a
+              href="#projects"
+              className="group relative flex items-center gap-3 px-10 py-5 rounded-full bg-blue-600 text-white font-black overflow-hidden transition-all duration-300"
+            >
+              <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+              <Briefcase size={20} className="relative z-10" />
+              <span className="relative z-10">EXPLORE WORK</span>
+            </a>
+          </Magnetic>
 
-        <motion.div
-          animate={{ y: [0, 14, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity }}
-          className="mt-20 flex justify-center text-gray-500"
-        >
-          <ArrowDown size={24} />
+          <div className="flex items-center gap-6">
+            {[
+              { Icon: Github, href: "https://github.com/Viswabrahmanavarun" },
+              { Icon: Linkedin, href: "https://linkedin.com/in/varun-viswabrahmana" },
+              { Icon: Mail, href: "mailto:v.varun2355@gmail.com" },
+            ].map((social, i) => (
+              <Magnetic key={i}>
+                <a
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-4 rounded-full glass-card hover:text-blue-400 hover:scale-110 transition-all duration-300"
+                >
+                  <social.Icon size={24} />
+                </a>
+              </Magnetic>
+            ))}
+          </div>
         </motion.div>
-      </div>
+      </motion.div>
+
+      <motion.div
+        animate={{ y: [0, 12, 0], opacity: [0.2, 0.5, 0.2] }}
+        transition={{ duration: 2, repeat: Infinity }}
+        className="absolute bottom-12 flex flex-col items-center gap-2 text-white/20 uppercase tracking-[0.5em] text-[8px] font-black"
+      >
+        <span>Scroll</span>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-blue-500 to-transparent" />
+      </motion.div>
     </section>
   );
 }

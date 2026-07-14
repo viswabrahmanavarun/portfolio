@@ -1,125 +1,92 @@
 "use client";
 
 import { motion } from "framer-motion";
-import BackgroundEffects from "@/components/BackgroundEffects";
+import { Code2, Database, Globe, Layers, Settings, Terminal } from "lucide-react";
 
-/* ===============================
-   SKILLS DATA
-================================ */
-const skills = [
+const skillCategories = [
   {
-    title: "Frontend",
-    color: "blue",
-    items: ["React", "Next.js", "HTML", "CSS", "Tailwind CSS"],
+    title: "Frontend Development",
+    icon: Globe,
+    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Redux"],
+    color: "from-blue-500 to-cyan-400",
   },
   {
-    title: "Backend",
-    color: "green",
-    items: ["Node.js", "Express.js", "REST APIs", "Prisma"],
+    title: "Backend Development",
+    icon: Terminal,
+    skills: ["Node.js", "Express.js", "REST APIs", "Prisma", "JWT", "GraphQL"],
+    color: "from-green-500 to-emerald-400",
   },
   {
     title: "Databases",
-    color: "purple",
-    items: ["MongoDB", "MySQL", "PostgreSQL"],
+    icon: Database,
+    skills: ["MongoDB", "MySQL", "PostgreSQL", "Redis", "Firebase"],
+    color: "from-purple-500 to-indigo-400",
   },
   {
-    title: "Cloud & Tools",
-    color: "orange",
-    items: ["AWS", "Google Cloud Platform (GCP)", "Git", "Docker"],
+    title: "DevOps & Tools",
+    icon: Settings,
+    skills: ["Docker", "Git", "AWS", "GCP", "Vercel", "CI/CD"],
+    color: "from-orange-500 to-yellow-400",
   },
   {
     title: "Testing",
-    color: "yellow",
-    items: ["Cypress", "Selenium", "Mocha", "Chai"],
+    icon: Layers,
+    skills: ["Cypress", "Selenium", "Jest", "Mocha", "Playwright"],
+    color: "from-pink-500 to-rose-400",
   },
   {
-    title: "AI / Data",
-    color: "red",
-    items: ["Python", "Machine Learning", "MLOps", "Power BI"],
+    title: "AI & Languages",
+    icon: Code2,
+    skills: ["Python", "JavaScript", "C++", "Machine Learning", "TensorFlow"],
+    color: "from-red-500 to-orange-400",
   },
 ];
 
 export default function Skills() {
   return (
-    <section
-      id="skills"
-      className="relative py-28 overflow-hidden"
-    >
-      {/* ===============================
-         SAME BACKGROUND AS HERO
-      ================================ */}
-      <BackgroundEffects />
-
-      {/* ===============================
-         CONTENT
-      ================================ */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
-        {/* Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
+    <section id="skills" className="relative">
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold text-center mb-16"
+          className="text-center mb-20"
         >
-          Skills
-        </motion.h2>
+          <h2 className="text-4xl md:text-6xl font-black mb-4">
+            Technical <span className="text-gradient">Arsenal</span>
+          </h2>
+          <p className="text-white/50 text-lg max-w-2xl mx-auto">
+            A comprehensive list of technologies and tools I use to bring ideas to life.
+          </p>
+        </motion.div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {skills.map((skill, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {skillCategories.map((category, index) => (
             <motion.div
-              key={skill.title}
-              initial={{ opacity: 0, y: 35 }}
+              key={category.title}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.12, duration: 0.6 }}
-              whileHover={{ y: -6 }}
-              className="bg-white/80 backdrop-blur border border-gray-200
-                         rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all"
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -10 }}
+              className="glass-card p-8 group transition-all duration-300"
             >
-              {/* Color Line */}
-              <div className="mb-4">
-                <div
-                  className={`h-1 w-12 rounded-full
-                    ${skill.color === "blue" && "bg-blue-500"}
-                    ${skill.color === "green" && "bg-green-500"}
-                    ${skill.color === "purple" && "bg-purple-500"}
-                    ${skill.color === "orange" && "bg-orange-500"}
-                    ${skill.color === "yellow" && "bg-yellow-500"}
-                    ${skill.color === "red" && "bg-red-500"}
-                  `}
-                />
+              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform`}>
+                <category.icon className="text-white" size={24} />
               </div>
-
-              {/* Title */}
-              <h3 className="text-lg font-semibold mb-5">
-                {skill.title}
+              
+              <h3 className="text-xl font-bold mb-6 text-white/90 group-hover:text-blue-400 transition-colors">
+                {category.title}
               </h3>
 
-              {/* Skill Chips */}
               <div className="flex flex-wrap gap-2">
-                {skill.items.map((item, i) => (
-                  <motion.span
-                    key={item}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.05 }}
-                    whileHover={{ scale: 1.08 }}
-                    className={`text-sm px-4 py-1.5 rounded-full
-                      bg-gray-100 border border-gray-200 text-gray-700
-                      transition cursor-default
-                      ${skill.color === "blue" && "hover:bg-blue-100 hover:text-blue-700"}
-                      ${skill.color === "green" && "hover:bg-green-100 hover:text-green-700"}
-                      ${skill.color === "purple" && "hover:bg-purple-100 hover:text-purple-700"}
-                      ${skill.color === "orange" && "hover:bg-orange-100 hover:text-orange-700"}
-                      ${skill.color === "yellow" && "hover:bg-yellow-100 hover:text-yellow-700"}
-                      ${skill.color === "red" && "hover:bg-red-100 hover:text-red-700"}
-                    `}
+                {category.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-3 py-1 text-sm rounded-lg bg-white/5 border border-white/10 text-white/60 hover:bg-white/10 hover:text-white transition-all cursor-default"
                   >
-                    {item}
-                  </motion.span>
+                    {skill}
+                  </span>
                 ))}
               </div>
             </motion.div>
